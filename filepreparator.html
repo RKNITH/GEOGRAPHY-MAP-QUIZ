@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeoQuiz File Preparator</title>
+</head>
+
+<body>
+  <h1>GeoQuiz File Preparator</h1>
+  <h2>Purpose</h2>
+  <p>This tool helps in the following way:
+  <ul>
+    <li>It adds a unique iso_a3 property to each GeoJSON polygon</li>
+    <li>It creates language objects that can be pasted straight to the end of /locales/countryNames.js</li>
+  </ul>
+  </p>
+  <h2>Workflow</h2>
+  <ul>
+    <li>Make sure that your GeoJSON has at least a property with the key <b>en</b></li>
+    <li>Any other language needs to have a similar 2-digit key (check /locales/countryNames.js for reference)</li>
+  </ul>
+  <textarea id="textareaboxCountryCode" cols="110" rows="2"
+    placeholder="Please write the iso_a3 country code here. The tool appends a consecutive number to this string in order to create a unique iso_a3"
+    autofocus></textarea>
+
+  <textarea id="textareaboxGeoJson" cols="110" rows="30"
+    placeholder="Please paste your GeoJSON code here. Language properties should be named 'en', 'de' and so on. The tool will append iso_a3 to each property"
+    autofocus></textarea>
+  <br>
+  <input type="button" class="button" value="Update GeoJSON and create language object" onclick="checkInput()" />
+  <div id="outputCode1"></div>
+  <div id="outputCode2"></div>
+
+
+  <script>
+    //This tool adds an iso_a3 property to a GeoJSON and creates the right format for /locales/countryNames.js
+
+
+    function checkInput() {
+      const countryCode = document.getElementById("textareaboxCountryCode").value;
+      const input = document.getElementById("textareaboxGeoJson").value;
+      const inputGeoJSON = JSON.parse(input);
+
+      //create language objects for /locales/countryNames.js
+      let alreadyInOutput = [];
+      let output = "";
+
+      for (let i = 0; i < inputGeoJSON.features.length; i++) {
+        let doubleEntry = checkIfAlreadyInOutput(inputGeoJSON.features[i].properties.en);
+        if (doubleEntry === -1) {
+          //Create empty dummy object
+          let emptyLanguageObject = { "alpha3": countryCode + "-" + i, "ar": "", "bg": "", "cs": "", "da": "", "de": "", "el": "", "en": "", "eo": "", "es": "", "et": "", "eu": "", "fi": "", "fr": "", "hu": "", "it": "", "ja": "", "ko": "", "lt": "", "nl": "", "no": "", "pl": "", "pt": "", "ro": "", "ru": "", "sk": "", "sv": "", "th": "", "uk": "", "zh": "", "zh-tw": "" };
+          Object.assign(emptyLanguageObject, inputGeoJSON.features[i].properties);
+          // output += `{ "alpha3": "${countryCode}-${i}", "ar": "", "bg": "", "cs": "", "da": "", "de": "", "el": "", "en": "${inputGeoJSON.features[i].properties.en}", "eo": "", "es": "", "et": "", "eu": "", "fi": "", "fr": "", "hu": "", "it": "", "ja": "", "ko": "", "lt": "", "nl": "", "no": "", "pl": "", "pt": "", "ro": "", "ru": "", "sk": "", "sv": "", "th": "", "uk": "", "zh": "${inputGeoJSON.features[i].properties.zh}", "zh-tw": ""},\n`;
+          output = output.concat(JSON.stringify(emptyLanguageObject)).concat(",\n");
+          alreadyInOutput.push(inputGeoJSON.features[i].properties.en);
+        }
+      };
+      const outputTextarea2 = "<h2>Result</h2><p>This code can be pasted straight to the bottom of /locales/countryNames.js</p> <textarea id=textareabox cols=150 rows=30 readonly>" + output + "</textarea>";
+      document.getElementById("outputCode2").innerHTML = outputTextarea2;
+
+      function checkIfAlreadyInOutput(currentIsoA3) {
+        return index = alreadyInOutput.findIndex(i => i === currentIsoA3);
+      }
+
+      //add iso_a3 property
+      for (let i = 0; i < inputGeoJSON.features.length; i++) {
+        inputGeoJSON.features[i].properties.iso_a3 = `${countryCode}-${i}`;
+      };
+      const outputTextarea1 = "<h2>Result</h2><p>Find below the GeoJSON with an iso_a3 property</p> <textarea id=textareabox cols=150 rows=30 readonly>" + JSON.stringify(inputGeoJSON) + "</textarea>";
+      document.getElementById("outputCode1").innerHTML = outputTextarea1;
+    }
+  </script>
+</body>
+
+</html>

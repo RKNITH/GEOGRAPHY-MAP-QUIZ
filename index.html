@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Basic -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>GeoQuiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Search Engine -->
+  <meta name="description"
+    content="Practice your geography skills by picking the right country on a map. All countries of the world are supported.">
+  <meta name="image" content="https://raw.githubusercontent.com/rene78/GeoQuiz/main/img/SocialMedia-GeoQuiz.png">
+  <link rel="canonical" href="https://geoquiz.renek.cc/" />
+  <meta name="keywords" content="Geography, quiz, education, countries" />
+
+  <!-- Schema.org for Google -->
+  <meta itemprop="name" content="GeoQuiz">
+  <meta itemprop="description" content="Practice your geography skills by picking the right country on a map.">
+  <meta itemprop="image" content="https://raw.githubusercontent.com/rene78/GeoQuiz/main/img/SocialMedia-GeoQuiz.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Open Graph general (Facebook, Twitter, ...) -->
+  <meta property="og:title" content="GeoQuiz">
+  <meta property="og:description" content="Practice your geography skills by picking the right country on a map.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/rene78/GeoQuiz/main/img/SocialMedia-GeoQuiz.png">
+  <meta property="og:logo"
+    content="https://raw.githubusercontent.com/rene78/GeoQuiz/main/img/android-chrome-512x512.png">
+  <meta property="og:url" content="https://geoquiz.renek.cc/">
+  <meta property="og:site_name" content="GeoQuiz">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon related -->
+  <link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
+  <link rel="manifest" href="./img/site.webmanifest">
+  <link rel="mask-icon" href="./img/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="./img/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="./img/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EJJ79BYR2E"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-EJJ79BYR2E');
+  </script>
+
+  <!-- style related -->
+  <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+
+  <!-- scripts -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+  <script src="./js/main.js" type="module"></script>
+</head>
+
+<body>
+  <div class="map-container">
+    <div class="selection-container"></div>
+    <div class="welcome-infobox">
+      <button class="expand-button"><img class="arrow-image" src="./img/arrow_left.png" alt="Arrow left"></button>
+      <img src="./img/favicon.svg" alt="Logo of GeoQuiz" class="logo">
+      <p class="welcome-infobox-heading">GeoQuiz</p>
+      <p class="welcome-infobox-intro">Practice your geography skills by picking the right country on a map. </p>
+      <a class="welcome-infobox-links highscore-link" href="./highscore.html" target="_blank"><img
+          src="./img/high-score-icon.jpg" alt="Highscore icon" class="thumbnails"><span
+          class="highscore-text">Highscore_</span></a>
+      <p class="welcome-infobox-help">Want to help?_</p>
+      <a class="welcome-infobox-links github-link" href="#"><img src="./img/github-icon.png" alt="GitHub icon"
+          class="thumbnails"><span class="github-text">Improve the
+          code_</span></a>
+      <a class="welcome-infobox-links translate-link" href="#"><img src="./img/transifex-iconjpg.jpg"
+          alt="Transifex icon" class="thumbnails"><span class="translate-text">Translate game_</span></a>
+      <a class="welcome-infobox-links donate-link" href="https://tallyco.in/s/6dfzf2/" target="_blank"><img
+          src="./img/lightning-icon.png" alt="Donate icon" class="thumbnails"><span class="donate-text">Donate some
+          Sats_</span></a>
+      <p class="welcome-infobox-dont-show">
+        <input type="checkbox" id="dont-show" name="dontShow">
+        <label for="dontShow" id="dont-show-label">Don't show on startup_</label>
+      </p>
+    </div>
+    <div id="map" class="to-blur"></div>
+    <div class="command-container to-blur">
+      <div class="progress"></div>
+      <div class="command"></div>
+      <div class="time-elapsed"></div>
+    </div>
+    <div class="countdown-timer">
+      <span class="countdown num3">3</span>
+      <span class="countdown num2">2</span>
+      <span class="countdown num1">1</span>
+      <span class="countdown go">Go!</span>
+    </div>
+    <div class="end-of-game-infobox">
+      <div>
+        <h1 class="end-of-game-infobox-heading">Result</h1>
+        <div class="end-of-game-infobox-result"></div>
+        <table class="end-of-game-infobox-highscore table-container"></table>
+        <button class="play-again-button">Play Again</button>
+      </div>
+    </div>
+    <div class="result"></div>
+  </div>
+</body>
+
+</html>

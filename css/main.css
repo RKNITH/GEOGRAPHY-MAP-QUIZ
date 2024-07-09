@@ -1,0 +1,462 @@
+/* #region CSS RELATED TO GENERAL PAGE LAYOUT */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.42em;
+  color:#A7A1AE;
+  background-color:#1F2739;
+}
+
+html, body, .map-container {
+  height: 100%;
+  width: 100vw;
+}
+/* #endregion */
+
+/* #region CSS RELATED TO LEAFLET MAP */
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+.not-allowed-cursor {
+  cursor: grab !important
+}
+
+.blur {
+  filter: blur(8px);
+}
+/* #endregion */
+
+/* #region CSS RELATED TO WELCOME INFOBOX */
+.welcome-infobox {
+  text-align: center;
+  position: fixed;
+  opacity: 0.95;
+  z-index: 1013;
+  top: 0px;
+  right: 0;
+  height: 100vh;
+  height: -webkit-fill-available; /* mobile viewport bug fix */
+  width: 270px;
+  border-radius: 30px 0 0 30px;
+  background-color: #1f2739;
+  padding: 20px;
+  box-sizing: border-box;
+  transition-property: right;
+  transition-duration: 200ms;
+  transition-timing-function: linear;
+  box-shadow: 0 1px 2px rgb(60 64 67 / 30%), 0 2px 6px 2px rgb(60 64 67 / 15%);
+}
+
+.hide-welcome {
+  right: -270px;
+}
+
+.expand-button {
+  width: 25px;
+  height: 50px;
+  top: calc(50% - 25px);
+  position: absolute;
+  left: -25px;
+  border-radius: 10px 0 0 10px;
+  opacity: 0.7;
+  border: 0;
+  box-shadow: -2px 2px 2px rgb(60 64 67 / 30%);
+  cursor: pointer;
+  border-right: 1px solid #4a4242;
+  background: #1f2739 7px/7px 10px no-repeat;
+  padding: 0;
+}
+
+.expand-button:hover {
+  opacity: .95;
+}
+
+.arrow-image {
+  vertical-align: middle;
+}
+
+.mirror-image {
+  transform: scaleX(-1);
+}
+
+.logo {
+  width: 70px;
+}
+
+.welcome-infobox-heading {
+  font-size: 25px;
+  margin: 5px;
+  font-weight: bold;
+  color: #4DC3FA;
+}
+
+.welcome-infobox-intro {
+  text-align: left;
+}
+
+.welcome-infobox-links, .continent-element {
+  display: flex;
+  align-items: center;
+  border: 2px solid;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  margin: 10px 0;
+  text-align: left;
+}
+
+.highscore-link {
+  border-color: #F1C950;
+}
+
+.github-link {
+  border-color: #FDFDF9;
+}
+
+.translate-link {
+  border-color: #0064AB;
+}
+
+.donate-link {
+  border-color: #F7931A;
+}
+
+.welcome-infobox-links:hover {
+  border: 2px solid #919191;
+}
+
+.thumbnails {
+  width: 25px;
+  margin-right: 7px;
+}
+
+.welcome-infobox-help {
+  margin-top: 25px;
+  font-weight: bold;
+}
+
+.welcome-infobox-dont-show {
+  position: absolute;
+  bottom: 0;
+}
+/* #endregion */
+
+/* #region CSS RELATED TO 3-2-1 COUNTDOWN TIMER*/
+.countdown-timer {
+  pointer-events: none;
+  font-size: 140px;
+  /* color: #778F9B; */
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 1003;
+}
+
+.countdown-timer span {
+  position: absolute;
+  opacity: 0;
+  top: 200px;
+}
+
+@keyframes time {
+
+  0%,
+  10%,
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+
+  5% {
+    opacity: 0.8;
+    transform: scale(1.2);
+  }
+}
+
+.start-animation {
+  animation: time 4s;
+}
+
+.go {
+  animation-delay: 3s;
+  color: #FF1643;
+  left: calc(50% - 110px);
+}
+
+.num1,
+.num2,
+.num3 {
+  left: calc(50% - 40px);
+}
+
+.num1 {
+  animation-delay: 2s;
+}
+
+.num2 {
+  animation-delay: 1s;
+}
+
+.num3 {
+  animation-delay: 0s;
+}
+/* #endregion */
+
+/* #region CSS RELATED TO COMMAND AND RESULT MODALS */
+.command-container, .result {
+  text-align: center;
+  position: fixed;
+  opacity: 0.7;
+  pointer-events: none;
+  font-size: 20px;
+  font-weight: bold;
+  z-index: 1002;
+}
+
+.command-container {
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 5px 60px 5px 40px;
+  background-color: #1f2739;
+}
+
+.hide-command {
+  animation-name: animateHideCommand;
+  animation-duration: 1s;
+  animation-iteration-count: 2;
+  animation-direction: alternate;
+}
+
+@keyframes animateHideCommand {
+  0%   {top: 0px;}
+  50%   {top: -100px;}
+  100%  {top: -100px;}
+}
+
+.progress {
+  position: absolute;
+  left: 5px;
+  font-size: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.time-elapsed {
+  position: absolute;
+  right: 5px;
+  font-size: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.result {
+  bottom: -100px;
+  left: 0;
+  right: 0;
+  padding: 5px 20px;
+}
+
+.show {
+  animation-name: animateShowResult;
+  animation-duration: 1s;
+  animation-iteration-count: 2;
+  animation-direction: alternate;
+}
+
+@keyframes animateShowResult {
+  0%   {bottom: -100px;}
+  50%   {bottom: 0px;}
+  100%  {bottom: 0px;}
+}
+
+.alarm {
+  background-color: red;
+  color: white;
+}
+
+.success {
+  background-color: green;
+  color: white;
+}
+/* #endregion */
+
+/* #region CSS RELATED TO TABLES (IN END OF GAME INFOBOX AND HIGHSCORE HTML) */
+h1 {
+  font-size:3em; 
+  font-weight: 300;
+  line-height:1em;
+  text-align: center;
+  color: #4DC3FA;
+  margin-bottom: 25px;
+}
+
+#highscores {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.table-container th h1 {
+  font-weight: bold;
+  font-size: 1em;
+  text-align: left;
+  color: #185875;
+  margin: 3px;
+}
+
+th[colspan]:not([colspan="1"]) {
+  text-align: center;
+}
+
+.table-container td {
+  font-weight: normal;
+  font-size: 1em;
+  -webkit-box-shadow: 0 2px 2px -2px #0E1119;
+    -moz-box-shadow: 0 2px 2px -2px #0E1119;
+          box-shadow: 0 2px 2px -2px #0E1119;
+}
+
+.table-container {
+  margin: 0px 10px 20px;
+}
+
+.table-container td, .table-container th {
+  padding: 5px;
+}
+
+/* Background-color of the odd rows */
+.table-container tr:nth-child(odd) {
+  background-color: #323C50;
+}
+
+/* Background-color of the even rows */
+.table-container tr:nth-child(even) {
+  background-color: #2C3446;
+}
+
+.table-container th {
+  background-color: #1c2434;
+}
+/* #endregion */
+
+/* #region CSS RELATED TO END OF GAME INFOBOX */
+.end-of-game-infobox {
+  position: Fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1005;
+  display: none;
+  pointer-events: None;
+}
+
+.show {
+  display: block;
+}
+
+.end-of-game-infobox>div {
+  position: relative;
+  padding: 5px 20px 13px 20px;
+  border-radius: 10px;
+  background-color: #1f2739;
+  pointer-events: Auto;
+  cursor: Default;
+  text-align: center;
+  width: fit-content;
+  margin: 35px auto;
+}
+
+.play-again-button {
+  position: relative;
+  width: 200px;
+  background-color: #185875;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 2px 5px 4px #231f2e;
+  border-radius: 8px;
+}
+
+.play-again-button:hover {
+  background-color: #1b6c91;
+}
+
+.end-of-game-infobox-highscore {
+  margin: 10px auto;
+}
+
+#last-game {
+  background-color: #4DC3FA;
+  color: white;
+}
+/* #endregion */
+
+/* #region CSS RELATED TO GAME SELECTOR */
+.selection-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* background-color: white; */
+  left: 20px;
+  /* transform: translate(-20%, 0); */
+  position: fixed;
+  z-index: 1012;
+  /* width: 70%; */
+  top: 70px;
+  overflow: auto;
+  max-height: 80vh;
+  max-width: 90vw;
+  opacity: .7;
+}
+
+.hide {
+  display: none;
+}
+
+.continent-selector {
+  margin: 2px;
+  background-color: #1c2434;
+  padding: 10px;
+}
+
+@media (max-width: 600px){
+  .continent-selector {
+    width: 100%;
+  }
+}
+
+.continent-heading {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.continent-element {
+  padding: 5px;
+}
+
+.continent-element:hover {
+  cursor: pointer;
+  background-color: #323C50;
+}
+
+/*Make sure that mouse click cannot be triggered on subelements of .continent-element.*/
+.continent-element > * {
+  pointer-events: none;
+}
+/* #endregion */
